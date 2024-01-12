@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Checklist</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional CSS to center the h2 element */
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bug Hunting Checklist</h1>
+
+    <h2 id="reconWildcardDomain">Recon on wildcard domain</h2>
+
+    <ul class="sub-checklist">
+        <li><input type="checkbox" id="amassWildcardCheckbox"> <label for="amassWildcardCheckbox">Run amass</label></li>
+        <li><input type="checkbox" id="subfinderWildcardCheckbox"> <label for="subfinderWildcardCheckbox">Run subfinder</label></li>
+        <li><input type="checkbox" id="assetfinderWildcardCheckbox"> <label for="assetfinderWildcardCheckbox">Run assetfinder</label></li>
+        <li><input type="checkbox" id="dnsgenWildcardCheckbox"> <label for="dnsgenWildcardCheckbox">Run dnsgen</label></li>
+        <li><input type="checkbox" id="massdnsWildcardCheckbox"> <label for="massdnsWildcardCheckbox">Run massdns</label></li>
+        <li><input type="checkbox" id="httprobeWildcardCheckbox"> <label for="httprobeWildcardCheckbox">Use httprobe</label></li>
+        <li><input type="checkbox" id="aquatoneWildcardCheckbox"> <label for="aquatoneWildcardCheckbox">Run aquatone (screenshot for alive host)</label></li>
+    </ul>
+    
+    <h2 id="reconSingleDomain">Recon on single domain</h2>
+
+    <ul class="sub-checklist">
+        <li><input type="checkbox" id="nmapCheckbox"> <label for="nmapCheckbox">Nmap scan</label></li>
+        <li><input type="checkbox" id="burpCrawlerCheckbox"> <label for="burpCrawlerCheckbox">Burp crawler</label></li>
+        <li><input type="checkbox" id="ffufCheckbox"> <label for="ffufCheckbox">ffuf (directory and file fuzzing)</label></li>
+        <li><input type="checkbox" id="hakrawlerCheckbox"> <label for="hakrawlerCheckbox">Hakrawler/gau/paramspider</label></li>
+        <li><input type="checkbox" id="linkfinderCheckbox"> <label for="linkfinderCheckbox">Linkfinder</label></li>
+        <li><input type="checkbox" id="urlAndroidCheckbox"> <label for="urlAndroidCheckbox">Url with Android application</label></li>
+    </ul>
+    
+    <h2 id="manualChecking">Manual checking</h2>
+
+    <ul class="sub-checklist">
+        <li><input type="checkbox" id="shodanCheckbox"> <label for="shodanCheckbox">Shodan</label></li>
+        <li><input type="checkbox" id="censysCheckbox"> <label for="censysCheckbox">Censys</label></li>
+        <li><input type="checkbox" id="googleDorksCheckbox"> <label for="googleDorksCheckbox">Google dorks</label></li>
+        <li><input type="checkbox" id="pastebinCheckbox"> <label for="pastebinCheckbox">Pastebin</label></li>
+        <li><input type="checkbox" id="githubCheckbox"> <label for="githubCheckbox">Github</label></li>
+        <li><input type="checkbox" id="osintCheckbox"> <label for="osintCheckbox">OSINT</label></li>
+    </ul>
+    
+    <h2 id="informationGathering">Information Gathering</h2>
+
+    <ul class="sub-checklist">
+        <li><input type="checkbox" id="exploreSiteCheckbox"> <label for="exploreSiteCheckbox">Manually explore the site</label></li>
+        <li><input type="checkbox" id="spiderContentCheckbox"> <label for="spiderContentCheckbox">Spider/crawl for missed or hidden content</label></li>
+        <li><input type="checkbox" id="exposeFilesCheckbox"> <label for="exposeFilesCheckbox">Check for files that expose content, such as robots.txt, sitemap.xml, .DS_Store</label></li>
+        <li><input type="checkbox" id="searchEngineCachesCheckbox"> <label for="searchEngineCachesCheckbox">Check the caches of major search engines for publicly accessible sites</label></li>
+        <li><input type="checkbox" id="userAgentCheckbox"> <label for="userAgentCheckbox">Check for differences in content based on User Agent</label></li>
+        <li><input type="checkbox" id="webAppFingerprintCheckbox"> <label for="webAppFingerprintCheckbox">Perform Web Application Fingerprinting</label></li>
+        <li><input type="checkbox" id="identifyTechnologiesCheckbox"> <label for="identifyTechnologiesCheckbox">Identify technologies used</label></li>
+        <li><input type="checkbox" id="identifyUserRolesCheckbox"> <label for="identifyUserRolesCheckbox">Identify user roles</label></li>
+        <li><input type="checkbox" id="identifyEntryPointsCheckbox"> <label for="identifyEntryPointsCheckbox">Identify application entry points</label></li>
+        <li><input type="checkbox" id="identifyHostnamesPortsCheckbox"> <label for="identifyHostnamesPortsCheckbox">Identify all hostnames and ports</label></li>
+        <li><input type="checkbox" id="identifyThirdPartyContentCheckbox"> <label for="identifyThirdPartyContentCheckbox">Identify third-party hosted content</label></li>
+        <li><input type="checkbox" id="identifyDebugParametersCheckbox"> <label for="identifyDebugParametersCheckbox">Identify Debug parameters</label></li>
+    </ul>
+
+    <!-- Add more main items with their corresponding sub-items as needed -->
+
+    <script src="script.js"></script>
+    <script>
+        // JavaScript to dynamically style main titles when all sub-checklist items are completed
+        document.querySelectorAll('.sub-checklist input[type="checkbox"]').forEach(function (subCheckbox) {
+            subCheckbox.addEventListener('change', function () {
+                var mainTitle = this.closest('.sub-checklist').previousElementSibling;
+                var subCheckboxes = this.closest('.sub-checklist').querySelectorAll('input[type="checkbox"]');
+                var allSubCheckboxesChecked = Array.from(subCheckboxes).every(function (checkbox) {
+                    return checkbox.checked;
+                });
+                if (allSubCheckboxesChecked) {
+                    mainTitle.classList.add('completed');
+                } else {
+                    mainTitle.classList.remove('completed');
+                }
+            });
+
+            // Trigger the change event on page load to check the state of the main titles
+            subCheckbox.dispatchEvent(new Event('change'));
+        });
+    </script>
+
+</body>
+</html>
